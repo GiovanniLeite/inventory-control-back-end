@@ -94,7 +94,7 @@ export default class Item extends Model {
         },
       },
       description: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         defaultValue: '',
       },
       id_main_category: {
@@ -117,7 +117,7 @@ export default class Item extends Model {
   }
 
   static associate(models) {
-    this.hasMany(models.FotoVideo, { foreignKey: 'id_item' });
+    this.hasMany(models.File, { foreignKey: 'id_item' });
   }
 
   isBoolean(value) {

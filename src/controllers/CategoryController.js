@@ -21,9 +21,7 @@ class CategoryController {
         }
       }
 
-      const data = await Category.findAll({
-        attributes: ['id', 'name', 'id_parent', 'id_parent_parent'],
-      });
+      const data = await Category.findAll();
 
       categoryList(0, data);
 
@@ -85,7 +83,6 @@ class CategoryController {
         });
       }
       const category = await Category.findByPk(id, {
-        attributes: ['id', 'name', 'id_parent', 'id_parent_parent'],
         order: ['id'],
       });
 

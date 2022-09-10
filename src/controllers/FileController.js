@@ -1,11 +1,11 @@
 import multer from 'multer';
 import multerConfig from '../config/multerConfig';
 
-import FotoVideo from '../models/FotoVideo';
+import File from '../models/File';
 
-const upload = multer(multerConfig).single('fotoVideo');
+const upload = multer(multerConfig).single('file');
 
-class FotoVideoController {
+class FileController {
   store(req, res) {
     return upload(req, res, async (err) => {
       if (err) {
@@ -16,9 +16,9 @@ class FotoVideoController {
       try {
         const { originalname, filename } = req.file;
         const { id_item } = req.body;
-        const fotoVideo = await FotoVideo.create({ originalname, filename, id_item });
+        const file = await File.create({ originalname, filename, id_item });
 
-        return res.json(fotoVideo);
+        return res.json(file);
       } catch (e) {
         return res.status(400).json({
           errors: ['Item não existe'],
@@ -28,4 +28,4 @@ class FotoVideoController {
   }
 }
 
-export default new FotoVideoController();
+export default new FileController();

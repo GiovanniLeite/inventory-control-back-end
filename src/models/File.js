@@ -1,7 +1,7 @@
 import Sequelize, { Model } from 'sequelize';
 import appConfig from '../config/appConfig';
 
-export default class FotoVideo extends Model {
+export default class File extends Model {
   static init(sequelize) {
     super.init({
       originalname: {
@@ -30,7 +30,7 @@ export default class FotoVideo extends Model {
       },
     }, {
       sequelize,
-      tableName: 'foto_video',
+      tableName: 'file',
     });
     return this;
   }
@@ -39,6 +39,6 @@ export default class FotoVideo extends Model {
     this.belongsTo(models.Item, { foreignKey: 'id_item' });
     // caso a referencia fosse no model de aluno seria o msm metodo
     // sem a linha de cima, mas com a linha de baixo
-    // this.hasOne(models.Foto, { foreignKey: 'aluno_id' });
+    // this.hasOne(models.File, { foreignKey: 'aluno_id' });
   }
 }

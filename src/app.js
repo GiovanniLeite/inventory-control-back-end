@@ -6,17 +6,15 @@ dotenv.config();
 import './database';
 import cors from 'cors';
 // import helmet from 'helmet';
-import delay from 'express-delay';
+// import delay from 'express-delay';
 
 import express from 'express';
-import homeRoutes from './routes/homeRoutes';
 import userRoutes from './routes/userRoutes';
 import tokenRoutes from './routes/tokenRoutes';
 
 import categoryRoutes from './routes/categoryRoutes';
 import itemRoutes from './routes/itemRoutes';
-import fotoVideoRoutes from './routes/fotoVideoRoutes';
-import itemCategoryRoutes from './routes/itemCategoryRoutes';
+import fileRoutes from './routes/fileRoutes';
 
 // front url
 const whiteList = [
@@ -26,9 +24,7 @@ const whiteList = [
 
 const corsOptions = {
   origin(origin, callback) {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {callback(null, true);    } else {
       callback(new Error('Not Allowed by CORS'));
     }
   },
@@ -50,13 +46,11 @@ class App {
   }
 
   routes() {
-    this.app.use('/', homeRoutes);
     this.app.use('/users/', userRoutes);
     this.app.use('/tokens/', tokenRoutes);
     this.app.use('/categories/', categoryRoutes);
     this.app.use('/items/', itemRoutes);
-    this.app.use('/fotoVideos/', fotoVideoRoutes);
-    this.app.use('/itemCategories/', itemCategoryRoutes);
+    this.app.use('/files/', fileRoutes);
   }
 }
 

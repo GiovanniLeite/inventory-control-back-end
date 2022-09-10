@@ -1,6 +1,6 @@
 import { Op } from 'sequelize';
 import Item from '../models/Item';
-import FotoVideo from '../models/FotoVideo';
+import File from '../models/File';
 
 class ItemController {
   async index(req, res) {
@@ -8,30 +8,37 @@ class ItemController {
       let where = {};
 
       const { name } = req.params;
-      const { idMainCategory } = req.params;
-      const { idSub1Category } = req.params;
-      const { idSub2Category } = req.params;
+      const { id } = req.params;
+      const { idParent } = req.params;
+      const { idParentParent } = req.params;
 
       if (name) {
         where = {
           name: { [Op.like]: `${name}%` },
         };
-      } else if (idMainCategory && idSub1Category && idSub2Category) {
-        where = {
-          [Op.or]: [
-            { id_main_category: idMainCategory },
-            { id_sub1_category: idSub1Category },
-            { id_sub2_category: idSub2Category },
-          ],
-        };
+      } else if (id && idParent && idParentParent) {
+        if (parseInt(idParent) === 0 && parseInt(idParentParent) === 0) {
+          // clicked on a main category
+          where = {
+            id_main_category: id,
+          }
+        } else if (parseInt(idParentParent) === 0) {
+          // clicked on a subcategory1 category
+          where = {
+            id_sub1_category: id,
+          }
+        } else {
+          // clicked on a subcategory2 category
+          where = {
+            id_sub2_category: id,
+          }
+        }
       }
 
       const items = await Item.findAll({
-        attributes: ['id', 'name', 'km', 'other', 'brand', 'date_release', 'new', 'custom_code', 'quantity',
-          'country_manufactury', 'date_purchase', 'date_sale', 'price_purchase', 'price_sale', 'price_my', 'is_item', 'is_car', 'description', 'id_main_category', 'id_sub1_category', 'id_sub2_category'],
-        order: [['id', 'DESC'], [FotoVideo, 'id', 'DESC']],
+        order: [['id', 'DESC'], [File, 'id', 'DESC']],
         include: {
-          model: FotoVideo,
+          model: File,
           attributes: ['url', 'filename'],
         },
         where,
@@ -55,11 +62,9 @@ class ItemController {
         });
       }
       const item = await Item.findByPk(id, {
-        attributes: ['id', 'name', 'km', 'other', 'brand', 'date_release', 'new', 'custom_code', 'quantity',
-          'country_manufactury', 'date_purchase', 'date_sale', 'price_purchase', 'price_sale', 'price_my', 'is_item', 'is_car', 'description', 'id_main_category', 'id_sub1_category', 'id_sub2_category'],
-        order: [['id', 'DESC'], [FotoVideo, 'id', 'DESC']],
+        order: [['id', 'DESC'], [File, 'id', 'DESC']],
         include: {
-          model: FotoVideo,
+          model: File,
           attributes: ['url', 'filename'],
         },
       });

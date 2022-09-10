@@ -5,10 +5,9 @@ import databaseConfig from '../config/database';
 import User from '../models/User';
 import Category from '../models/Category';
 import Item from '../models/Item';
-import FotoVideo from '../models/FotoVideo';
-import ItemCategory from '../models/ItemCategory';
+import File from '../models/File';
 
-const models = [User, Category, Item, FotoVideo, ItemCategory];
+const models = [User, Category, Item, File];
 
 const connection = new Sequelize(databaseConfig);
 
