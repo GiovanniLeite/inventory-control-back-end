@@ -1,7 +1,7 @@
 import multer from 'multer';
 import { extname, resolve } from 'path';
 
-const aleatorio = () => Math.floor(Math.random() * 10000 + 10000);// retorna valor entre 10k e 20k
+const aleatorio = () => Math.floor(Math.random() * 10000 + 10000); // retorna um valor entre 10k e 20k
 
 export default {
   fileFilter: (req, file, cb) => {

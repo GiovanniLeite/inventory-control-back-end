@@ -17,14 +17,13 @@ import itemRoutes from './routes/itemRoutes';
 import fileRoutes from './routes/fileRoutes';
 
 // front url
-const whiteList = [
-  'http://localhost:3000',
-  'http://localhost',
-];
+const whiteList = ['http://localhost:3000', 'http://localhost'];
 
 const corsOptions = {
   origin(origin, callback) {
-    if (whiteList.indexOf(origin) !== -1 || !origin) {callback(null, true);    } else {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
       callback(new Error('Not Allowed by CORS'));
     }
   },
@@ -42,7 +41,10 @@ class App {
     // this.app.use(delay(2000));
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use('/images/', express.static(resolve(__dirname, '..', 'uploads', 'images')));
+    this.app.use(
+      '/images/',
+      express.static(resolve(__dirname, '..', 'uploads', 'images')),
+    );
   }
 
   routes() {

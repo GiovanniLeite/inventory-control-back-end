@@ -21,22 +21,25 @@ class ItemController {
           // clicked on a main category
           where = {
             id_main_category: id,
-          }
+          };
         } else if (parseInt(idParentParent) === 0) {
           // clicked on a subcategory1 category
           where = {
             id_sub1_category: id,
-          }
+          };
         } else {
           // clicked on a subcategory2 category
           where = {
             id_sub2_category: id,
-          }
+          };
         }
       }
 
       const items = await Item.findAll({
-        order: [['id', 'DESC'], [File, 'id', 'DESC']],
+        order: [
+          ['id', 'DESC'],
+          [File, 'id', 'DESC'],
+        ],
         include: {
           model: File,
           attributes: ['url', 'filename'],
@@ -62,7 +65,10 @@ class ItemController {
         });
       }
       const item = await Item.findByPk(id, {
-        order: [['id', 'DESC'], [File, 'id', 'DESC']],
+        order: [
+          ['id', 'DESC'],
+          [File, 'id', 'DESC'],
+        ],
         include: {
           model: File,
           attributes: ['url', 'filename'],

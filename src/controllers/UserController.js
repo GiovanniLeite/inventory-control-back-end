@@ -39,12 +39,6 @@ class UserController {
   // Update
   async update(req, res) {
     try {
-      // if (!req.params.id) {
-      //   return res.status(400).json({
-      //     errors: ['ID não enviado.'],
-      //   });
-      // }
-
       const user = await User.findByPk(req.userId);
 
       if (!user) {
@@ -66,12 +60,6 @@ class UserController {
   // Delete
   async delete(req, res) {
     try {
-      // if (!req.params.id) {
-      //   return res.status(400).json({
-      //     errors: ['ID não enviado.'],
-      //   });
-      // }
-
       const user = await User.findByPk(req.userId);
 
       if (!user) {

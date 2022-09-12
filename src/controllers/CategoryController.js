@@ -3,7 +3,8 @@ import { Op } from 'sequelize';
 import Category from '../models/Category';
 
 class CategoryController {
-  async indexZ(req, res) { // list for page categories
+  async indexZ(req, res) {
+    // list for page categories
     try {
       let categories = [];
 
@@ -12,14 +13,14 @@ class CategoryController {
        * param idParent, ID of the parent category whose subcategories will be searched
        * param arrayCategory Array with categories
        */
-      function categoryList(idParent, arrayCategory) {
+      const categoryList = (idParent, arrayCategory) => {
         for (const category of arrayCategory) {
           if (category.id_parent === idParent) {
             categories.push(category);
-            categoryList(category.id, arrayCategory)
+            categoryList(category.id, arrayCategory);
           }
         }
-      }
+      };
 
       const data = await Category.findAll();
 
@@ -31,7 +32,8 @@ class CategoryController {
     }
   }
 
-  async index(req, res) { // normal list
+  async index(req, res) {
+    // normal list
     try {
       let where = {};
 
@@ -60,11 +62,12 @@ class CategoryController {
   async store(req, res) {
     try {
       const newCategory = await Category.create(req.body);
-      const {
-        id, name, id_parent, id_parent_parent,
-      } = newCategory;
+      const { id, name, id_parent, id_parent_parent } = newCategory;
       return res.json({
-        id, name, id_parent, id_parent_parent,
+        id,
+        name,
+        id_parent,
+        id_parent_parent,
       });
     } catch (e) {
       return res.status(400).json({
